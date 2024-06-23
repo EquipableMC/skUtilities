@@ -13,8 +13,8 @@ import java.util.Objects;
 
 public class UpdateChecker implements Runnable {
 
-    private static final String UPDATE_URL = "https://raw.githubusercontent.com/tim740/skUtilities/master/latest.ver";
-    private static final String RELEASES_URL = "https://github.com/tim740/skUtilities/releases/";
+    private static final String UPDATE_URL = "https://raw.githubusercontent.com/equipablemc/skUtilities/master/latest.ver";
+    private static final String RELEASES_URL = "https://github.com/equipablemc/skUtilities/releases/";
     private static final String DOWNLOAD_URL = RELEASES_URL + "download/v";
     private static final String LATEST_RELEASE = RELEASES_URL + "latest";
 

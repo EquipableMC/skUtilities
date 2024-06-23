@@ -1,12 +1,14 @@
 package uk.tim740.skUtilities;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.SkriptAddon;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.tim740.skUtilities.util.EffReloadConfig;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -16,12 +18,41 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 
 public class skUtilities extends JavaPlugin {
+  
+  private static skUtilities instance;
+  private static SkriptAddon addonInstance;
+  
+  public skUtilities() {
+    if (instance == null) {
+      instance = this;
+    } else {
+      throw new IllegalStateException();
+    }
+  }
+  
+  public static skUtilities getInstance() {
+    if (instance == null) {
+      throw new IllegalStateException();
+    }
+    return instance;
+  }
+  
+  public static SkriptAddon getAddonInstance() {
+    if (addonInstance == null) {
+      addonInstance = Skript.registerAddon(getInstance());
+    }
+    return addonInstance;
+  }
 
   @Override
   public void onEnable() {
     long s = System.currentTimeMillis();
-    Skript.registerAddon(this);
-    getDataFolder().mkdirs();
+    if (!Skript.isAcceptRegistrations()) {
+      getServer().getPluginManager().disablePlugin(this);
+      getLogger().severe("skUtilities cannot be loaded when the server is already loaded! Plugin is disabled.");
+      return;
+    }
+    
     saveDefaultConfig();
     if (!(getConfig().getInt("configVersion") == 9) || !(getConfig().isSet("configVersion"))) {
       try {
