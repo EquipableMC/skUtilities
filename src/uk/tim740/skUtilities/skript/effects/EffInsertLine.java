@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.files;
+package uk.tim740.skUtilities.skript.effects;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
@@ -7,7 +7,7 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-import uk.tim740.skUtilities.files.event.EvtFileWrite;
+import uk.tim740.skUtilities.skript.events.EvtFileWrite;
 import uk.tim740.skUtilities.skUtilities;
 
 import java.io.IOException;

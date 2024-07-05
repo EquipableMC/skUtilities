@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.util;
+package uk.tim740.skUtilities.skript.effects;
 
 import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.lang.Effect;

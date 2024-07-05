@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.files.event;
+package uk.tim740.skUtilities.skript.events;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

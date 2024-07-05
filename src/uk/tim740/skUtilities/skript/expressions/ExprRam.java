@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.util;
+package uk.tim740.skUtilities.skript.expressions;
 
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -16,12 +16,16 @@ public class ExprRam extends SimpleExpression<Number> {
   @Override
   @Nullable
   protected Number[] get(Event e) {
+    long freeMemory = (Runtime.getRuntime().freeMemory()/1000000L);
+    long totalMemory = (Runtime.getRuntime().totalMemory()/1000000L);
+    long maxMemory = (Runtime.getRuntime().maxMemory()/1000000L);
+
     if (ty == 0) {
-      return new Number[]{Runtime.getRuntime().freeMemory() / 1000000L};
+      return new Number[]{freeMemory};
     } else if (ty == 1) {
-      return new Number[]{Runtime.getRuntime().totalMemory() / 1000000L};
+      return new Number[]{totalMemory};
     } else {
-      return new Number[]{Runtime.getRuntime().maxMemory() / 1000000L};
+      return new Number[]{maxMemory};
     }
   }
 

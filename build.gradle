@@ -10,8 +10,14 @@ version = '1.0.0'
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.papermc.io/repository/maven-public/' }
-    maven { url 'https://oss.sonatype.org/content/groups/public/' }
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
     maven { url 'https://repo.skriptlang.org/releases/' }
 }
 
@@ -21,7 +27,7 @@ processResources {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    compileOnly(group: 'com.github.SkriptLang', name: 'Skript', version: '2.6.4') {
+    compileOnly(group: 'com.github.SkriptLang', name: 'Skript', version: '2.7.0') {
         transitive = false
     }
     implementation "org.jetbrains:annotations-java5:23.0.0"
@@ -30,21 +36,23 @@ dependencies {
     implementation "com.googlecode.json-simple:json-simple:1.1.1"
 }
 
-def targetJavaVersion = 21
-java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+def latestJava = 21
+def oldestJava = 17
+
+
+build {
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs.add("-Xlint:unchecked")
+            options.compilerArgs.add("-Xlint:deprecation")
+        }
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release = targetJavaVersion
-    }
+    options.compilerArgs += ['-source', '' + oldestJava, '-target', '' + oldestJava]
 }
+
 
 sourceSets.main.java.srcDirs = ["src"]
 sourceSets.main.resources.srcDirs = ["src"]

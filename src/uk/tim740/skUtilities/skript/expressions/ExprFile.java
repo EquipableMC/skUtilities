@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.files.event;
+package uk.tim740.skUtilities.skript.expressions;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.lang.Expression;
@@ -8,6 +8,7 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 import uk.tim740.skUtilities.skUtilities;
+import uk.tim740.skUtilities.skript.events.*;
 
 import java.nio.file.Path;
 

@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.files;
+package uk.tim740.skUtilities.skript.effects;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
@@ -15,7 +15,7 @@ import java.io.IOException;
  * Created by tim740 on 10/04/17
  */
 public class EffRunCmd extends Effect {
-  static String o = "";
+  public static String o = "";
   private Expression<String> cmdr;
 
   @Override

@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.util;
+package uk.tim740.skUtilities.skript.conditions;
 
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;

@@ -6,13 +6,10 @@ import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Date;
 import ch.njol.skript.util.Getter;
-import uk.tim740.skUtilities.convert.*;
-import uk.tim740.skUtilities.files.*;
-import uk.tim740.skUtilities.files.event.*;
-import uk.tim740.skUtilities.url.*;
-import uk.tim740.skUtilities.util.*;
-import uk.tim740.skUtilities.yaml.CondYamlExists;
-import uk.tim740.skUtilities.yaml.SExprYaml;
+import uk.tim740.skUtilities.skript.effects.*;
+import uk.tim740.skUtilities.skript.events.*;
+import uk.tim740.skUtilities.skript.expressions.*;
+import uk.tim740.skUtilities.skript.conditions.*;
 
 import java.nio.file.Path;
 
@@ -21,12 +18,12 @@ import java.nio.file.Path;
  */
 class Reg {
   static void convert() {
-    Skript.registerExpression(ExprToBin.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (0¦(text|string)|1¦decimal|2¦hexa[decimal]|3¦octal) %string% to bin[ary]", "[skutil[ities] ](0¦(text|string)|1¦decimal|2¦hexa[decimal]|3¦octal) %string% as bin[ary]");
-    Skript.registerExpression(ExprToAscii.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert ascii %numbers% to (0¦(text|string)|1¦unicode)", "[skutil[ities] ]ascii %numbers% as (0¦(text|string)|1¦unicode)");
+    Skript.registerExpression(ExprToBin.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (0:(text|string)|1:decimal|2:hexa[decimal]|3:octal) %string% to bin[ary]", "[skutil[ities] ](0:(text|string)|1:decimal|2:hexa[decimal]|3:octal) %string% as bin[ary]");
+    Skript.registerExpression(ExprToAscii.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert ascii %numbers% to (0:(text|string)|1:unicode)", "[skutil[ities] ]ascii %numbers% as (0:(text|string)|1:unicode)");
 
-    Skript.registerExpression(ExprFromString.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (text|string) %string% to (0¦ascii|1¦unicode)", "[skutil[ities] ](text|string) %string% as (0¦ascii|1¦unicode)");
-    Skript.registerExpression(ExprFromBin.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert bin[ary] %string% to (0¦(text|string)|1¦decimal|2¦hexa[decimal]|3¦octal)", "[skutil[ities] ]bin[ary] %string% as (0¦(text|string)|1¦decimal|2¦hexa[decimal]|3¦octal)");
-    Skript.registerExpression(ExprFromUnicode.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert unicode %string% to (0¦(text|string)|1¦ascii)", "[skutil[ities] ]unicode %string% as (0¦(text|string)|1¦ascii)");
+    Skript.registerExpression(ExprFromString.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (text|string) %string% to (0:ascii|1:unicode)", "[skutil[ities] ](text|string) %string% as (0:ascii|1:unicode)");
+    Skript.registerExpression(ExprFromBin.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert bin[ary] %string% to (0:(text|string)|1:decimal|2:hexa[decimal]|3:octal)", "[skutil[ities] ]bin[ary] %string% as (0:(text|string)|1:decimal|2:hexa[decimal]|3:octal)");
+    Skript.registerExpression(ExprFromUnicode.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert unicode %string% to (0:(text|string)|1:ascii)", "[skutil[ities] ]unicode %string% as (0:(text|string)|1:ascii)");
 
     Skript.registerExpression(ExprHexaToNum.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert hexa[decimal] %string% to num[ber]", "[skutil[ities] ]hexa[decimal] %string% as num[ber]");
     Skript.registerExpression(ExprNumToHexa.class, String.class, ExpressionType.PROPERTY, "convert num[ber] %number% to hexa[decimal]", "[skutil[ities] ]num[ber] %number% as hexa[decimal]");
@@ -39,32 +36,32 @@ class Reg {
     Skript.registerExpression(ExprUnixToDate.class, Date.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert unix[ date] %number% to date", "[skutil[ities] ]unix[ date] %number% as date");
     Skript.registerExpression(ExprUnixToFormattedDate.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert unix[ date] %number% to date formatted as %string%", "[skutil[ities] ]unix[ date] %number% as date formatted as %string%");
 
-    Skript.registerExpression(ExprBase64.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦en|1¦de)code base[ ]64 %string%");
-    Skript.registerExpression(ExprMorse.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦en|1¦de)code morse[ code] %string%");
-    Skript.registerExpression(ExprEncrypt.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦en|1¦de)crypt %string% using %-string% with key %-string%");
+    Skript.registerExpression(ExprBase64.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:en|1:de)code base[ ]64 %string%");
+    Skript.registerExpression(ExprMorse.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:en|1:de)code morse[ code] %string%");
+    Skript.registerExpression(ExprEncrypt.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:en|1:de)crypt %string% using %-string% with key %-string%");
 
     Skript.registerExpression(ExprClearAccented.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]clear accented chars from %string%");
     Skript.registerExpression(ExprHash.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]hash[ed] %string% using %-string%");
     Skript.registerExpression(ExprMirrorTxt.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](mirror[ed]|flip[ped]|reverse[d]) %string%");
 
-    Skript.registerExpression(ExprToUpperLower.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (text|string) %string% to (0¦uppercase|1¦lowercase)");
+    Skript.registerExpression(ExprToUpperLower.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]convert (text|string) %string% to (0:uppercase|1:lowercase)");
     Skript.registerExpression(ExprRandomizeString.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]randomize %string%");
   }
 
   static void files() {
     Skript.registerExpression(ExprZipList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]files in zip[ file] %string%", "[skutil[ities] ]zip[ file] %string%'s files");
-    Skript.registerExpression(ExprDirList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]files in dir[ectory](0¦|1¦ including sub dir[ectorie]s) %string%", "[skutil[ities] ]dir[ectory](0¦|1¦ including sub dir[ectorie]s) %string%'s files");
+    Skript.registerExpression(ExprDirList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]files in dir[ectory](0:|1: including sub dir[ectorie]s) %string%", "[skutil[ities] ]dir[ectory](0:|1: including sub dir[ectorie]s) %string%'s files");
     Skript.registerExpression(ExprFileLines.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]line count of file %string%", "[skutil[ities] ]file %string%'s line count");
-    Skript.registerExpression(ExprFileTimeAttributes.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]file %string%'s (0¦last modified|1¦creation|2¦last access) value", "[skutil[ities] ](0¦last modified|1¦creation|2¦last access) value of file %string%");
-    Skript.registerExpression(ExprFileDirSize.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]size of (0¦file|1¦dir[ectory]) %string%", "[skutil[ities] ](0¦file|1¦dir[ectory]) %string%'s size");
-    Skript.registerExpression(ExprFileDirSizeBytes.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]size of (0¦file|1¦dir[ectory]) %string% in bytes", "[skutil[ities] ](0¦file|1¦dir[ectory]) %string%'s size in bytes");
-    Skript.registerExpression(ExprFileNameExt.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦name|1¦extension) of file %string%", "[skutil[ities] ]file %string%'s (0¦name|1¦extension)");
-    Skript.registerExpression(ExprGetPathASR.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦(absolute|complete)|1¦short|2¦relative) path of %string%", "[skutil[ities] ]%string%'s (0¦(absolute|complete)|1¦short|2¦relative) path");
+    Skript.registerExpression(ExprFileTimeAttributes.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]file %string%'s (0:last modified|1:creation|2:last access) value", "[skutil[ities] ](0:last modified|1:creation|2:last access) value of file %string%");
+    Skript.registerExpression(ExprFileDirSize.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]size of (0:file|1:dir[ectory]) %string%", "[skutil[ities] ](0:file|1:dir[ectory]) %string%'s size");
+    Skript.registerExpression(ExprFileDirSizeBytes.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]size of (0:file|1:dir[ectory]) %string% in bytes", "[skutil[ities] ](0:file|1:dir[ectory]) %string%'s size in bytes");
+    Skript.registerExpression(ExprFileNameExt.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:name|1:extension) of file %string%", "[skutil[ities] ]file %string%'s (0:name|1:extension)");
+    Skript.registerExpression(ExprGetPathASR.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:(absolute|complete)|1:short|2:relative) path of %string%", "[skutil[ities] ]%string%'s (0:(absolute|complete)|1:short|2:relative) path");
 
-    Skript.registerExpression(ExprDiskSpace.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]disk's (0¦total|1¦free|2¦usable) space", "[skutil[ities] ](0¦total|1¦free|2¦usable) space on disk");
+    Skript.registerExpression(ExprDiskSpace.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]disk's (0:total|1:free|2:usable) space", "[skutil[ities] ](0:total|1:free|2:usable) space on disk");
 
     Skript.registerExpression(SExprFileOwner.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]owner of file %string%", "[skutil[ities] ]file %string%'s owner");
-    Skript.registerExpression(SExprFileAttribute.class, Boolean.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦readable|1¦writable|2¦hidden) attribute of file %string%", "[skutil[ities] ]file %string%'s (0¦readable|1¦writable|2¦hidden) attribute");
+    Skript.registerExpression(SExprFileAttribute.class, Boolean.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:readable|1:writable|2:hidden) attribute of file %string%", "[skutil[ities] ]file %string%'s (0:readable|1:writable|2:hidden) attribute");
     Skript.registerExpression(SExprFileContents.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]file contents of %string%", "[skutil[ities] ]%string%'s file contents");
     Skript.registerExpression(SExprEditLine.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]line %number% in file %string%", "[skutil[ities] ]file %string%'s line %number%");
 
@@ -72,9 +69,9 @@ class Reg {
     Skript.registerEffect(EffRunCmd.class, "[skutil[ities] ]run (bash|batch|sh) (command|cmd) %string%");
     Skript.registerExpression(ExprRunCmdOutput.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ][last ]output of executed (bash|batch|sh) (command|cmd)", "[skutil[ities] ][last ]executed (bash|batch|sh) (command|cmd)'s output");
 
-    Skript.registerEffect(EffCreateFile.class, "[skutil[ities] ]create (0¦(script|program|app[lication]|[zip ]file)|1¦dir[ectory]) %string%");
-    Skript.registerEffect(EffDeleteFile.class, "[skutil[ities] ]delete (0¦(script|program|app[lication]|[zip ]file)|1¦dir[ectory]) %string%");
-    Skript.registerEffect(EffFileRenameMove.class, "[skutil[ities] ](0¦rename (file|dir[ectory])|1¦move file|2¦copy file|3¦move dir[ectory]|4¦copy dir[ectory]) %string% to %-string%");
+    Skript.registerEffect(EffCreateFile.class, "[skutil[ities] ]create (0:(script|program|app[lication]|[zip ]file)|1:dir[ectory]) %string%");
+    Skript.registerEffect(EffDeleteFile.class, "[skutil[ities] ]delete (0:(script|program|app[lication]|[zip ]file)|1:dir[ectory]) %string%");
+    Skript.registerEffect(EffFileRenameMove.class, "[skutil[ities] ](0:rename (file|dir[ectory])|1:move file|2:copy file|3:move dir[ectory]|4:copy dir[ectory]) %string% to %-string%");
     Skript.registerEffect(EffFileDownload.class, "[skutil[ities] ]download file from %string% to file %-string%");
     Skript.registerEffect(EffZipFiles.class, "[skutil[ities] ]zip file[s] %strings% to zip[ file] %-string%");
     Skript.registerEffect(EffZipDirectory.class, "[skutil[ities] ]zip dir[ectory] %string% to zip[ file] %-string%");
@@ -257,7 +254,6 @@ class Reg {
   }
 
   static void yaml() {
-    Skript.registerExpression(SExprYaml.class, Object.class, ExpressionType.PROPERTY, "[skutil[ities] ]y[a]ml (0¦value|1¦nodes|2¦node[s with] keys|3¦list) %string% (from|of) file %-string%");
     Skript.registerCondition(CondYamlExists.class, "[skutil[ities] ]y[a]ml[ path] %string% in file %-string% exists", "[skutil[ities] ]y[a]ml[ path] %string% in file %-string% does(n't| not) exist");
   }
 
@@ -273,37 +269,37 @@ class Reg {
 
     Skript.registerExpression(ExprUrlSSLVerifier.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl verifier of url %string%", "[skutil[ities] ]url %string%'s ssl verifier");
     Skript.registerExpression(ExprUrlSSLSerialNumber.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl serial number of url %string%", "[skutil[ities] ]url %string%'s ssl serial number");
-    Skript.registerExpression(ExprUrlSSLIssueExpire.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl (0¦issue|1¦expire) value of url %string%", "[skutil[ities] ]url %string%'s ssl (0¦issue|1¦expire) value");
+    Skript.registerExpression(ExprUrlSSLIssueExpire.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl (0:issue|1:expire) value of url %string%", "[skutil[ities] ]url %string%'s ssl (0:issue|1:expire) value");
     Skript.registerExpression(ExprUrlSSLAlgorithm.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl algorithm of url %string%", "[skutil[ities] ]url %string%'s ssl algorithm");
     Skript.registerExpression(ExprUrlSSLVersion.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]ssl version of url %string%", "[skutil[ities] ]url %string%'s ssl version");
   }
 
   static void utils() {
-    Skript.registerExpression(ExprDateInner.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦year|1¦month|2¦month name|3¦day of year|4¦day of month|5¦day of week|6¦day name|7¦hours|8¦minutes|9¦seconds) from date %date%", "[skutil[ities] ]date %date%'s (0¦year|1¦month|2¦month name|3¦day of year|4¦day of month|5¦day of week|6¦day name|7¦hours|8¦minutes|9¦seconds)");
+    Skript.registerExpression(ExprDateInner.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:year|1:month|2:month name|3:day of year|4:day of month|5:day of week|6:day name|7:hours|8:minutes|9:seconds) from date %date%", "[skutil[ities] ]date %date%'s (0:year|1:month|2:month name|3:day of year|4:day of month|5:day of week|6:day name|7:hours|8:minutes|9:seconds)");
     Skript.registerExpression(ExprGetTimeZone.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]time[ ]zone of server", "[skutil[ities] ]server's time[ ]zone");
     Skript.registerExpression(ExprTimeZoneList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ][all ]time[ ]zones");
     Skript.registerExpression(ExprTimeInTimeZone.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ][current ]time in time[ ]zone %string%", "[skutil[ities] ][current ]time[ ]zone %string%'s time");
     Skript.registerExpression(ExprGetRegion.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]region of server", "[skutil[ities] ]server's region");
     Skript.registerCondition(CondisTimeZone.class, "[skutil[ities] ]server is time[ ]zone %string%", "[skutil[ities] ]server is(n'| no)t time[ ]zone %string%");
 
-    Skript.registerExpression(ExprGetJsonIDS.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]content of json value(0¦ |1¦'s) %strings% from text %-string%", "[skutil[ities] ]value's %strings%'s json contents from text %-string%");
+    Skript.registerExpression(ExprGetJsonIDS.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]content of json value(0: |1:'s) %strings% from text %-string%", "[skutil[ities] ]value's %strings%'s json contents from text %-string%");
 
-    Skript.registerExpression(ExprGetSysProp.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]system property (0¦os arch|1¦os name|2¦os version|3¦java home|4¦user dir|5¦user home|6¦user name|7¦user lang[uage]|8¦user timezone|9¦line separator|10¦file separator|11¦path separator|12¦file encoding)");
-    Skript.registerCondition(CondisOS.class, "[skutil[ities] ](operating system|os) is (0¦windows|1¦mac|2¦linux|3¦unix|4¦solaris|5¦sun os|6¦hp ux|7¦aix|8¦irix|9¦free bsd|10¦open bsd|11¦net bsd)", "[skutil[ities] ](operating system|os) is(n'| no)t (0¦windows|1¦mac|2¦linux|3¦unix|4¦solaris|5¦sun os|6¦hp ux|7¦aix|8¦irix|9¦free bsd|10¦open bsd|11¦net bsd)");
+    Skript.registerExpression(ExprGetSysProp.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]system property (0:os arch|1:os name|2:os version|3:java home|4:user dir|5:user home|6:user name|7:user lang[uage]|8:user timezone|9:line separator|10:file separator|11:path separator|12:file encoding)");
+    Skript.registerCondition(CondisOS.class, "[skutil[ities] ](operating system|os) is (0:windows|1:mac|2:linux|3:unix|4:solaris|5:sun os|6:hp ux|7:aix|8:irix|9:free bsd|10:open bsd|11:net bsd)", "[skutil[ities] ](operating system|os) is(n'| no)t (0:windows|1:mac|2:linux|3:unix|4:solaris|5:sun os|6:hp ux|7:aix|8:irix|9:free bsd|10:open bsd|11:net bsd)");
 
     Skript.registerExpression(ExprCpuCores.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]number of (cpu|processor) cores", "[skutil[ities] ](cpu|processor) core count");
-    Skript.registerExpression(ExprCpuSpec.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦name|1¦arch[itecture]) of (cpu|processor)", "[skutil[ities] ](cpu|processor) (0¦name|1¦arch[itecture])");
+    Skript.registerExpression(ExprCpuSpec.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:name|1:arch[itecture]) of (cpu|processor)", "[skutil[ities] ](cpu|processor) (0:name|1:arch[itecture])");
 
-    Skript.registerExpression(ExprLoaded.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]number of[ loaded] (0¦(commands|cmds)|1¦functions|2¦s(c|k)ripts|3¦triggers|4¦statements|5¦variables|6¦aliases|7¦events|8¦effects|9¦expressions|10¦conditions)");
-    Skript.registerExpression(ExprLoadedList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦plugins|1¦addons) list", "[skutil[ities] ]list of (0¦plugins|1¦addons)");
+    Skript.registerExpression(ExprLoaded.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]number of[ loaded] (0:(commands|cmds)|1:functions|2:s(c|k)ripts|3:triggers|4:statements|5:variables|6:aliases|7:events|8:effects|9:expressions|10:conditions)");
+    Skript.registerExpression(ExprLoadedList.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:plugins|1:addons) list", "[skutil[ities] ]list of (0:plugins|1:addons)");
     Skript.registerExpression(ExprVersion.class, String.class, ExpressionType.PROPERTY, "[skutil[ities] ]%string%'s version", "[skutil[ities] ]version of %string%");
-    Skript.registerExpression(ExprSysTime.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ][current ]system (0¦nanos[econds]|1¦millis[econds]|2¦seconds)");
-    Skript.registerExpression(ExprRam.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ](0¦free|1¦total|2¦max) (ram|memory)");
-    Skript.registerExpression(ExprCaseLength.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]number of (0¦upper|1¦lower)case char[acter]s in %string%");
+    Skript.registerExpression(ExprSysTime.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ][current ]system (0:nanos[econds]|1:millis[econds]|2:seconds)");
+    Skript.registerExpression(ExprRam.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ](0:free|1:total|2:max) (ram|memory)");
+    Skript.registerExpression(ExprCaseLength.class, Number.class, ExpressionType.PROPERTY, "[skutil[ities] ]number of (0:upper|1:lower)case char[acter]s in %string%");
 
     Skript.registerEffect(EffSkReloadAliases.class, "[skutil[ities] ]skript reload aliases");
     Skript.registerEffect(EffRunOpCmd.class, "[skutil[ities] ](force|make) %player% run (cmd|command) %string% as op");
 
-    Skript.registerCondition(CondStartsEndsWith.class, "[skutil[ities] ]%string% (0¦starts|1¦ends) with %-string%", "[skutil[ities] ]%string% does(n't| not) (0¦start|1¦end) with %-string%");
+    Skript.registerCondition(CondStartsEndsWith.class, "[skutil[ities] ]%string% (0:starts|1:ends) with %-string%", "[skutil[ities] ]%string% does(n't| not) (0:start|1:end) with %-string%");
   }
 }

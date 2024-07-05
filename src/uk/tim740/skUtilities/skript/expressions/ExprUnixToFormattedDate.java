@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.convert;
+package uk.tim740.skUtilities.skript.expressions;
 
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;

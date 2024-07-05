@@ -1,4 +1,4 @@
-package uk.tim740.skUtilities.files;
+package uk.tim740.skUtilities.skript.expressions;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
@@ -9,7 +9,7 @@ import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-import uk.tim740.skUtilities.files.event.EvtFileWipe;
+import uk.tim740.skUtilities.skript.events.EvtFileWipe;
 import uk.tim740.skUtilities.skUtilities;
 
 import java.io.IOException;

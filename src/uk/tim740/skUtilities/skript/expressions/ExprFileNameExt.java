@@ -1,10 +1,10 @@
-package uk.tim740.skUtilities.files;
+package uk.tim740.skUtilities.skript.expressions;
 
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.google.common.io.Files;
+import java.nio.file.Paths;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +23,13 @@ public class ExprFileNameExt extends SimpleExpression<String> {
     String pth = skUtilities.getDefaultPath(path.getSingle(e));
     try {
       if (ty == 0) {
-        return new String[]{Files.getNameWithoutExtension(pth)};
+        String fileName = Paths.get(pth).getFileName().toString();
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0) {
+          return new String[]{fileName.substring(0, dotIndex)};
+        } else {
+          return new String[]{fileName};  // No extension found
+        }
       } else {
         return new String[]{FilenameUtils.getExtension(pth)};
       }
