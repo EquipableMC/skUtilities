@@ -2,13 +2,13 @@ package uk.tim740.skUtilities;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.tim740.skUtilities.skript.effects.EffReloadConfig;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -46,6 +46,22 @@ public class skUtilities extends JavaPlugin {
 
   @Override
   public void onEnable() {
+
+    int playerAmount = Bukkit.getOnlinePlayers().size();
+    int onlineMode = Bukkit.getOnlineMode() ? 1 : 0;
+    String bukkitVersion = Bukkit.getVersion();
+    bukkitVersion = bukkitVersion.substring(bukkitVersion.indexOf("MC: ") + 4, bukkitVersion.length() - 1);
+
+    String javaVersion = System.getProperty("java.version");
+    String osName = System.getProperty("os.name");
+    String osArch = System.getProperty("os.arch");
+    String osVersion = System.getProperty("os.version");
+    int coreCount = Runtime.getRuntime().availableProcessors();
+
+    int pluginId = 22727;
+    Metrics metrics = new Metrics(this, pluginId);
+
+
     long s = System.currentTimeMillis();
     if (!Skript.isAcceptRegistrations()) {
       getServer().getPluginManager().disablePlugin(this);
@@ -110,11 +126,6 @@ public class skUtilities extends JavaPlugin {
       }, 1L, Duration.ofHours(12).getSeconds());
     } else {
       prSysI("Updater is disabled, you should consider enabling it again!");
-    }
-    try {
-      new MetricsLite(this);
-    } catch (Exception x) {
-      skUtilities.prSysE("Failed to submit stats to bStats, bStats could be offline!", getClass().getSimpleName(), x);
     }
     prSysI("loaded modules (" + ls + ") in " + (System.currentTimeMillis() - s) + "ms");
   }
